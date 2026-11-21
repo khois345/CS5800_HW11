@@ -25,7 +25,7 @@ public class DispensingSnackStateTest {
 
 	@Test
 	public void selectSnack() {
-		String output = captureOutput(() -> dispensing.selectSnack(machine, "Snickers"));
+		String output = getPrintedOutput(() -> dispensing.selectSnack(machine, "Snickers"));
 
 		assertTrue(output.contains("Please wait"));
 		assertEquals(dietCoke, machine.getSelectedSnack());
@@ -34,7 +34,7 @@ public class DispensingSnackStateTest {
 
 	@Test
 	public void insertMoney() {
-		String output = captureOutput(() -> dispensing.insertMoney(machine, 1.00));
+		String output = getPrintedOutput(() -> dispensing.insertMoney(machine, 1.00));
 
 		assertTrue(output.contains("Returned $1.00"));
 		assertEquals(1.75, machine.getBalance());
@@ -55,7 +55,7 @@ public class DispensingSnackStateTest {
 	public void dispenseSnackReturnsChange() {
 		machine.setBalance(2.00);
 
-		String output = captureOutput(() -> dispensing.dispenseSnack(machine));
+		String output = getPrintedOutput(() -> dispensing.dispenseSnack(machine));
 
 		assertTrue(output.contains("Returned $0.25"));
 		assertEquals(0, machine.getBalance());
@@ -66,7 +66,7 @@ public class DispensingSnackStateTest {
 		machine.setSelectedSnack(snickers);
 		machine.setBalance(1.25);
 
-		String output = captureOutput(() -> dispensing.dispenseSnack(machine));
+		String output = getPrintedOutput(() -> dispensing.dispenseSnack(machine));
 
 		assertTrue(output.contains("Returned $1.25"));
 		assertEquals(0, snickers.getQuantity());
@@ -74,7 +74,7 @@ public class DispensingSnackStateTest {
 		assertInstanceOf(IdleState.class, machine.getState());
 	}
 
-	private String captureOutput(Runnable action) {
+	private String getPrintedOutput(Runnable action) {
 		PrintStream original = System.out;
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(output));

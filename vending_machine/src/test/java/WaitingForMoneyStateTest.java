@@ -24,7 +24,7 @@ public class WaitingForMoneyStateTest {
 
 	@Test
 	public void selectSnack() {
-		String output = captureOutput(() -> waiting.selectSnack(machine, "Snickers"));
+		String output = getPrintedOutput(() -> waiting.selectSnack(machine, "Snickers"));
 
 		assertTrue(output.contains("Diet Coke is already selected"));
 		assertEquals(dietCoke, machine.getSelectedSnack());
@@ -33,7 +33,7 @@ public class WaitingForMoneyStateTest {
 
 	@Test
 	public void insertMoneyNotEnough() {
-		String output = captureOutput(() -> waiting.insertMoney(machine, 1.00));
+		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 1.00));
 
 		assertTrue(output.contains("Please insert $0.75 more"));
 		assertEquals(1.00, machine.getBalance());
@@ -68,7 +68,7 @@ public class WaitingForMoneyStateTest {
 
 	@Test
 	public void insertMoneyMoreReturnsChange() {
-		String output = captureOutput(() -> waiting.insertMoney(machine, 2.00));
+		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 2.00));
 
 		assertTrue(output.contains("Returned $0.25"));
 		assertEquals(0, machine.getBalance());
@@ -78,7 +78,7 @@ public class WaitingForMoneyStateTest {
 	public void insertMoneyOutOfStockReturnsMoney() {
 		machine.setSelectedSnack(snickers);
 
-		String output = captureOutput(() -> waiting.insertMoney(machine, 1.25));
+		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 1.25));
 
 		assertTrue(output.contains("Returned $1.25"));
 		assertEquals(0, snickers.getQuantity());
@@ -87,14 +87,14 @@ public class WaitingForMoneyStateTest {
 
 	@Test
 	public void dispenseSnack() {
-		String output = captureOutput(() -> waiting.dispenseSnack(machine));
+		String output = getPrintedOutput(() -> waiting.dispenseSnack(machine));
 
 		assertTrue(output.contains("Please insert $1.75 more"));
 		assertEquals(2, dietCoke.getQuantity());
 		assertEquals(waiting, machine.getState());
 	}
 
-	private String captureOutput(Runnable action) {
+	private String getPrintedOutput(Runnable action) {
 		PrintStream original = System.out;
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(output));
