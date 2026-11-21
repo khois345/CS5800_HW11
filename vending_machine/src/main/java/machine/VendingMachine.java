@@ -78,9 +78,11 @@ public class VendingMachine {
 	}
 
 	public void selectSnack(String snackName) {
+		state.selectSnack(this, snackName);
 	}
 
 	public void insertMoney(double amount) {
+		state.insertMoney(this, amount);
 	}
 
 	public void dispenseSnack() {
