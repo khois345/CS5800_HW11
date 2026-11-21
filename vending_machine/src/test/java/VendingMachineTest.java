@@ -100,6 +100,38 @@ public class VendingMachineTest {
 	}
 
 	@Test
+	public void selectSnack() {
+		machine.selectSnack("Coke");
+
+		assertEquals(coke, machine.getSelectedSnack());
+		assertInstanceOf(WaitingForMoneyState.class, machine.getState());
+	}
+
+	@Test
+	public void insertMoney() {
+		machine.selectSnack("Coke");
+
+		machine.insertMoney(1.50);
+
+		assertEquals(1, coke.getQuantity());
+		assertEquals(0, machine.getBalance());
+		assertInstanceOf(IdleState.class, machine.getState());
+	}
+
+	@Test
+	public void snickersQuantityHitsZero() {
+		machine.selectSnack("Snickers");
+		machine.insertMoney(1.25);
+
+		machine.selectSnack("Snickers");
+		machine.insertMoney(1.25);
+
+		assertEquals(0, snickers.getQuantity());
+		assertEquals(0, machine.getBalance());
+		assertInstanceOf(IdleState.class, machine.getState());
+	}
+
+	@Test
 	public void dispenseSnack() {
 		machine.setSelectedSnack(pepsi);
 		machine.setBalance(1.50);

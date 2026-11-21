@@ -77,6 +77,12 @@ public class VendingMachine {
 		return null;
 	}
 
+	public void selectSnack(String snackName) {
+	}
+
+	public void insertMoney(double amount) {
+	}
+
 	public void dispenseSnack() {
 		state.dispenseSnack(this);
 	}
