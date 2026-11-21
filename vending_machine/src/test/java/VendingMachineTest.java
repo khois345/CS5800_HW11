@@ -100,6 +100,18 @@ public class VendingMachineTest {
 	}
 
 	@Test
+	public void dispenseSnack() {
+		machine.setSelectedSnack(pepsi);
+		machine.setBalance(1.50);
+		machine.setState(new DispensingSnackState());
+
+		machine.dispenseSnack();
+
+		assertEquals(1, pepsi.getQuantity());
+		assertInstanceOf(IdleState.class, machine.getState());
+	}
+
+	@Test
 	public void returnMoney() {
 		machine.setBalance(2.00);
 

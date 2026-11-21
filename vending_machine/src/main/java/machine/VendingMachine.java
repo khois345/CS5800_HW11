@@ -77,6 +77,9 @@ public class VendingMachine {
 		return null;
 	}
 
+	public void dispenseSnack() {
+	}
+
 	public double returnMoney() {
 		double returned = balance;
 		balance = 0;
