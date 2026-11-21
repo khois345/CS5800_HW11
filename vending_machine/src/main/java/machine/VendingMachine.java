@@ -78,6 +78,7 @@ public class VendingMachine {
 	}
 
 	public void dispenseSnack() {
+		state.dispenseSnack(this);
 	}
 
 	public double returnMoney() {
