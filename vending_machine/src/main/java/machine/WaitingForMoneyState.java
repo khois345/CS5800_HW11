@@ -21,6 +21,8 @@ public class WaitingForMoneyState implements StateOfVendingMachine {
 			return;
 		}
 
+		System.out.printf("Received $%.2f. Dispensing %s...%n",
+				machine.getBalance(), machine.getSelectedSnack().getName());
 		machine.setState(new DispensingSnackState());
 		machine.dispenseSnack();
 	}
@@ -32,6 +34,6 @@ public class WaitingForMoneyState implements StateOfVendingMachine {
 
 	private void printAmountDue(VendingMachine machine) {
 		double amountDue = machine.getSelectedSnack().getPrice() - machine.getBalance();
-		System.out.printf("Please insert $%.2f more%n", amountDue);
+		System.out.printf("Received $%.2f. Please insert $%.2f more%n", machine.getBalance(), amountDue);
 	}
 }

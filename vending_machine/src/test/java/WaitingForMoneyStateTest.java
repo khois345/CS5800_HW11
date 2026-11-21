@@ -35,7 +35,7 @@ public class WaitingForMoneyStateTest {
 	public void insertMoneyNotEnough() {
 		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 1.00));
 
-		assertTrue(output.contains("Please insert $0.75 more"));
+		assertTrue(output.contains("Received $1.00. Please insert $0.75 more"));
 		assertEquals(1.00, machine.getBalance());
 		assertEquals(waiting, machine.getState());
 	}
@@ -50,8 +50,9 @@ public class WaitingForMoneyStateTest {
 
 	@Test
 	public void insertMoneyExact() {
-		waiting.insertMoney(machine, 1.75);
+		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 1.75));
 
+		assertTrue(output.contains("Received $1.75. Dispensing Diet Coke..."));
 		assertEquals(1, dietCoke.getQuantity());
 		assertEquals(0, machine.getBalance());
 		assertInstanceOf(IdleState.class, machine.getState());
@@ -89,7 +90,7 @@ public class WaitingForMoneyStateTest {
 	public void dispenseSnack() {
 		String output = getPrintedOutput(() -> waiting.dispenseSnack(machine));
 
-		assertTrue(output.contains("Please insert $1.75 more"));
+		assertTrue(output.contains("Received $0.00. Please insert $1.75 more"));
 		assertEquals(2, dietCoke.getQuantity());
 		assertEquals(waiting, machine.getState());
 	}
