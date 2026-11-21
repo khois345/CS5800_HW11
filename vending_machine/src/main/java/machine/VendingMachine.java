@@ -7,7 +7,7 @@ import snack.*;
 
 public class VendingMachine {
 	private List<Snack> snacks;
-	private SnackDispenseHandler snackDispenser;		// head of the chain
+	private SnackDispenseHandler snackDispenser;
 	private StateOfVendingMachine state;
 	private Snack selectedSnack;
 	private double balance;

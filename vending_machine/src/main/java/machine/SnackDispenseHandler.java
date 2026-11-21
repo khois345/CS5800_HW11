@@ -4,7 +4,7 @@ import snack.*;
 
 public class SnackDispenseHandler {
 	private Snack snack;
-	private SnackDispenseHandler next;		// next handler in the chain
+	private SnackDispenseHandler next;
 
 	public SnackDispenseHandler(Snack snack) {
 		this.snack = snack;
