@@ -83,6 +83,13 @@ public class VendingMachineTest {
 	}
 
 	@Test
+	public void setBalanceRoundsToCents() {
+		machine.setBalance(0.10 + 0.20);
+
+		assertEquals(0.30, machine.getBalance());
+	}
+
+	@Test
 	public void changingReturnedListDoesNotChangeSnacks() {
 		machine.getSnacks().add(new Snack("Water", 1.00, 1));
 
