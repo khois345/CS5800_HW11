@@ -9,8 +9,8 @@ public class WaitingForMoneyState implements StateOfVendingMachine {
 
 	@Override
 	public void insertMoney(VendingMachine machine, double amount) {
-		if (amount <= 0) {
-			System.err.println("Inserted money must be greater than 0");
+		if (!Double.isFinite(amount) || amount <= 0) {
+			System.err.println("Inserted money must be a valid amount greater than 0");
 			return;
 		}
 
