@@ -63,7 +63,7 @@ public class VendingMachine {
 			return;
 		}
 
-		this.balance = balance;
+		this.balance = Math.round(balance * 100) / 100.0;
 	}
 
 	// other methods
