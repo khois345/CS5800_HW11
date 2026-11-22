@@ -1,0 +1,13 @@
+@startuml
+
+title Vending Machine - State
+
+[*] --> Idle
+
+Idle --> WaitingForMoney : selectSnack()
+WaitingForMoney --> WaitingForMoney : insertMoney()\n[not enough]
+WaitingForMoney --> DispensingSnack : insertMoney()\n[enough money]
+DispensingSnack --> Idle : in stock / dispense + change
+DispensingSnack --> Idle : out of stock / refund
+
+@enduml
