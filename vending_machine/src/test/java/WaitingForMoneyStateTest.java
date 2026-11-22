@@ -49,6 +49,22 @@ public class WaitingForMoneyStateTest {
 	}
 
 	@Test
+	public void insertMoneyNaNIsIgnored() {
+		waiting.insertMoney(machine, Double.NaN);
+
+		assertEquals(2, dietCoke.getQuantity());
+		assertEquals(0, machine.getBalance());
+	}
+
+	@Test
+	public void insertMoneyInfinityIsIgnored() {
+		waiting.insertMoney(machine, Double.POSITIVE_INFINITY);
+
+		assertEquals(2, dietCoke.getQuantity());
+		assertEquals(0, machine.getBalance());
+	}
+
+	@Test
 	public void insertMoneyExact() {
 		String output = getPrintedOutput(() -> waiting.insertMoney(machine, 1.75));
 
